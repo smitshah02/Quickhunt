@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quickhunt.in</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/icon.png"/>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+  </head>
+
+<body>
+    <h1><span class="white">Quickhunt</span></h1>
+
+    <table class="container">
+        <thead>
+            <tr>
+                <th><h1>Title</h1></th>
+                <th><h1>Summary</h1></th>
+                <th><h1>Sentiment</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for k in range(0, tsize)%} 
+            <tr>
+                <td>{{ ttitles[k] }}</td>
+                <td><a href="{{ tlinks[k] }}" target="_blank">{{ tsummary[k] }}</a></td>
+                <td>{{ tsentiments[k] }}</td>
+            </tr>
+            
+            {%endfor%}
+        </tbody>
+    </table>
+  </div>
+
+  <div id='myDiv' class='graph'>
+    <script>
+        var p_tsize = {{ p_tsize }}
+        var n_tsize = {{ n_tsize }}
+        var neg_tsize = {{ neg_tsize }}
+        var trace1 = {
+        x: ['Poitive', 'Neutral', 'Negative'],
+        y: [p_tsize, n_tsize, neg_tsize],
+        marker:{
+          color: ['rgba(74,184,235, 0.8)', 'rgba(74,184,235, 0.8)', 'rgba(74,184,235, 0.8)']
+        },
+        type: 'bar'
+      };
+
+      var data = [trace1];
+
+      var layout = {
+        title: 'Sentiment Visualisation'
+      };
+
+      Plotly.newPlot('myDiv', data, layout);
+    </script>
+  </div>
+
+</body>
+
+</html>
